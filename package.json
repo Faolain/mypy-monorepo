@@ -36,6 +36,6 @@
     "@commitlint/config-conventional": "^12.1.4"
   },
   "scripts": {
-    "dev": "yarn workspace @dummy/frontend dev",
+    "dev": "yarn workspace @dummy/frontend dev"
   }
 }
