@@ -20,7 +20,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -49,7 +49,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       # Access cached node modules from previous job
       - name: Restore node modules
         uses: actions/cache@v2
@@ -85,7 +85,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0 # 👈 Required to retrieve git history
       # Access cached node modules from previous job
