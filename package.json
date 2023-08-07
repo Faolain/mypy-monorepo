@@ -1,0 +1,41 @@
+{
+  "name": "@dummy/monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/react",
+      "**/react/**",
+      "**/react-dom",
+      "**/react-dom/**"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-push": "yarn workspace @test/frontend type-check"
+    }
+  },
+  "lint-staged": {
+    "packages/frontend/**/*.@(ts|tsx)": [
+      "yarn workspace @dummy/frontend lint",
+      "yarn workspace @dummy/frontend format"
+    ],
+    "*.sol": "yarn workspace @dummy/contracts prettier:solidity"
+  },
+  "dependencies": {
+    "husky": "4",
+    "lint-staged": "^11.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4"
+  },
+  "scripts": {
+    "dev": "yarn workspace @dummy/frontend dev",
+  }
+}
