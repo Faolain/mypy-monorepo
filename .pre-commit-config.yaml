@@ -60,6 +60,8 @@ repos:
           [
             pydantic,
             pydantic-settings,
+            aiosql,
+            uvloop,
             pylint-pydantic,
             jinja2,
             hiredis,
@@ -78,7 +80,7 @@ repos:
             pytest,
             pytest-docker,
             saq,
-            https://github.com/litestar-org/litestar/archive/refs/heads/main.zip,
+            litestar,
             types-freezegun,
             types-python-jose,
             types-click,
