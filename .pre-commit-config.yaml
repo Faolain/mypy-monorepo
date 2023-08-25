@@ -14,7 +14,7 @@ repos:
       - id: trailing-whitespace
         exclude: "packages/frontend"
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: "v0.0.278"
+    rev: "v0.0.282"
     hooks:
       - id: ruff
         args: ["--fix"]
@@ -31,7 +31,7 @@ repos:
       - id: blacken-docs
         exclude: "packages/frontend"
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: "v3.0.0"
+    rev: "v3.0.1"
     hooks:
       - id: prettier
         exclude: "_templates|_build|node_modules|packages/frontend"
@@ -41,7 +41,7 @@ repos:
       - id: ensure-dunder-all
         exclude: "test*|examples*|tools|scripts|packages/frontend"
   - repo: https://github.com/ariebovenberg/slotscheck
-    rev: v0.16.5
+    rev: v0.17.0
     hooks:
       - id: slotscheck
         exclude: "test_*|docs|migrations|scripts|packages/frontend"
@@ -52,6 +52,7 @@ repos:
       - id: mypy
         exclude: "^(packages/frontend|pyproject.toml)"
         entry: bash -c 'MYPYPATH=packages/backend mypy --config-file packages/backend/pyproject.toml packages/backend'
+        args: []
         additional_dependencies:
           [
             pydantic,
