@@ -165,7 +165,11 @@ def run_all_app(
         if reload_dirs:
             process_args.update({"reload-dir": reload_dirs})
         subprocess.run(
-            ["uvicorn", settings.server.APP_LOC, *_convert_uvicorn_args(process_args)],
+            [
+                "uvicorn",
+                settings.server.APP_LOC,
+                *_convert_uvicorn_args(process_args),
+            ],
             check=True,
         )
     finally:

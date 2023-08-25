@@ -50,12 +50,8 @@ repos:
     rev: "v1.4.1"
     hooks:
       - id: mypy
-        exclude: "packages/frontend"
-        # entry: mypy --config-file packages/backend/pyproject.toml
-        args: ["--config-file", "packages/backend/pyproject.toml"]
-        # args: [--config-file=./packages/backend/pyproject.toml]
-        # entry: mypy --config-file packages/backend/pyproject.toml
-        # entry: bash -c 'cd packages/backend && mypy --config-file pyproject.toml .'
+        exclude: "^(packages/frontend|pyproject.toml)"
+        entry: bash -c 'MYPYPATH=packages/backend mypy --config-file packages/backend/pyproject.toml packages/backend'
         additional_dependencies:
           [
             pydantic,

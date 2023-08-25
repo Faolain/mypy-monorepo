@@ -1301,13 +1301,13 @@ files = [
 
 [[package]]
 name = "litestar"
-version = "2.0.0b4"
+version = "2.0.1"
 description = "Litestar - A production-ready, highly performant, extensible ASGI API Framework"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "litestar-2.0.0b4-py3-none-any.whl", hash = "sha256:47cdcd598247c56e3a928338da5f0b57c0a876e512f5d7ae62e109d034f69c7c"},
-    {file = "litestar-2.0.0b4.tar.gz", hash = "sha256:87e7bdad774a71c9a745194432dd025aaa605d32104f21fac0e9f1a73ec72ae9"},
+    {file = "litestar-2.0.1-py3-none-any.whl", hash = "sha256:44e4b0965769b8263680fd9495d77e3defc3afdbb09747fa8d9ec338b94f147f"},
+    {file = "litestar-2.0.1.tar.gz", hash = "sha256:f47d11f7fa4a05e562655e02277aa0647da72b0c9be5ba3b3ed32f5efe38c98d"},
 ]
 
 [package.dependencies]
