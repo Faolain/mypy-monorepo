@@ -46,7 +46,11 @@ def run_app(_: dict[str, Any]) -> None:
     """Launch Application Components."""
 
 
-@click.group(name="database", invoke_without_command=False, help="Manage the configured database backend.")
+@click.group(
+    name="database",
+    invoke_without_command=False,
+    help="Manage the configured database backend.",
+)
 @click.pass_context
 def database_management_app(_: dict[str, Any]) -> None:
     """Manage the configured database backend."""
@@ -58,14 +62,20 @@ def user_management_app(_: dict[str, Any]) -> None:
     """Manage application users."""
 
 
-@click.group(name="worker", invoke_without_command=False, help="Manage application background workers.")
+@click.group(
+    name="worker",
+    invoke_without_command=False,
+    help="Manage application background workers.",
+)
 @click.pass_context
 def worker_management_app(_: dict[str, Any]) -> None:
     """Manage application users."""
 
 
 @click.group(
-    name="run-all", invoke_without_command=True, help="Starts the application server & worker in a single command."
+    name="run-all",
+    invoke_without_command=True,
+    help="Starts the application server & worker in a single command.",
 )
 @click.option(
     "--host",
@@ -101,7 +111,14 @@ def worker_management_app(_: dict[str, Any]) -> None:
     show_default=True,
 )
 @click.option("-r", "--reload", help="Enable reload", is_flag=True, default=False, type=bool)
-@click.option("-v", "--verbose", help="Enable verbose logging.", is_flag=True, default=False, type=bool)
+@click.option(
+    "-v",
+    "--verbose",
+    help="Enable verbose logging.",
+    is_flag=True,
+    default=False,
+    type=bool,
+)
 @click.option("-d", "--debug", help="Enable debugging.", is_flag=True, default=False, type=bool)
 def run_all_app(
     host: str,
@@ -148,7 +165,8 @@ def run_all_app(
         if reload_dirs:
             process_args.update({"reload-dir": reload_dirs})
         subprocess.run(
-            ["uvicorn", settings.server.APP_LOC, *_convert_uvicorn_args(process_args)], check=True  # noqa: S603, S607
+            ["uvicorn", settings.server.APP_LOC, *_convert_uvicorn_args(process_args)],
+            check=True,
         )
     finally:
         for process in multiprocessing.active_children():
@@ -166,7 +184,14 @@ def run_all_app(
     required=False,
     show_default=True,
 )
-@click.option("-v", "--verbose", help="Enable verbose logging.", is_flag=True, default=False, type=bool)
+@click.option(
+    "-v",
+    "--verbose",
+    help="Enable verbose logging.",
+    is_flag=True,
+    default=False,
+    type=bool,
+)
 @click.option("-d", "--debug", help="Enable debugging.", is_flag=True, default=False, type=bool)
 def run_worker(
     worker_concurrency: int | None,
@@ -303,7 +328,7 @@ def upgrade_database() -> None:
 
 @database_management_app.command(
     name="reset-database",
-    help="Executes migrations to apply any outstanding database structures.",
+    help="Drops all tables and re-applies the migrations.",
 )
 @click.option(
     "--no-prompt",
