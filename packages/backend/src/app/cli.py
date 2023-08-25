@@ -40,7 +40,9 @@ console = get_console()
 logger = log.get_logger()
 
 
-@click.group(name="serve", invoke_without_command=False, help="Run application services.")
+@click.group(
+    name="serve", invoke_without_command=False, help="Run application services."
+)
 @click.pass_context
 def run_app(_: dict[str, Any]) -> None:
     """Launch Application Components."""
@@ -56,7 +58,9 @@ def database_management_app(_: dict[str, Any]) -> None:
     """Manage the configured database backend."""
 
 
-@click.group(name="users", invoke_without_command=False, help="Manage application users.")
+@click.group(
+    name="users", invoke_without_command=False, help="Manage application users."
+)
 @click.pass_context
 def user_management_app(_: dict[str, Any]) -> None:
     """Manage application users."""
@@ -110,7 +114,9 @@ def worker_management_app(_: dict[str, Any]) -> None:
     required=False,
     show_default=True,
 )
-@click.option("-r", "--reload", help="Enable reload", is_flag=True, default=False, type=bool)
+@click.option(
+    "-r", "--reload", help="Enable reload", is_flag=True, default=False, type=bool
+)
 @click.option(
     "-v",
     "--verbose",
@@ -119,7 +125,9 @@ def worker_management_app(_: dict[str, Any]) -> None:
     default=False,
     type=bool,
 )
-@click.option("-d", "--debug", help="Enable debugging.", is_flag=True, default=False, type=bool)
+@click.option(
+    "-d", "--debug", help="Enable debugging.", is_flag=True, default=False, type=bool
+)
 def run_all_app(
     host: str,
     port: int | None,
@@ -133,7 +141,9 @@ def run_all_app(
     log.config.configure()
     settings.server.HOST = host or settings.server.HOST
     settings.server.PORT = port or settings.server.PORT
-    settings.server.RELOAD = reload or settings.server.RELOAD if settings.server.RELOAD is not None else None
+    settings.server.RELOAD = (
+        reload or settings.server.RELOAD if settings.server.RELOAD is not None else None
+    )
     settings.server.HTTP_WORKERS = http_workers or settings.server.HTTP_WORKERS
     settings.worker.CONCURRENCY = worker_concurrency or settings.worker.CONCURRENCY
     settings.app.DEBUG = debug or settings.app.DEBUG
@@ -156,7 +166,9 @@ def run_all_app(
             "reload": bool(settings.server.RELOAD),
             "host": settings.server.HOST,
             "port": settings.server.PORT,
-            "workers": 1 if bool(settings.server.RELOAD or settings.app.DEV_MODE) else settings.server.HTTP_WORKERS,
+            "workers": 1
+            if bool(settings.server.RELOAD or settings.app.DEV_MODE)
+            else settings.server.HTTP_WORKERS,
             "factory": settings.server.APP_LOC_IS_FACTORY,
             "loop": "auto",
             "no-access-log": True,
@@ -165,12 +177,8 @@ def run_all_app(
         if reload_dirs:
             process_args.update({"reload-dir": reload_dirs})
         subprocess.run(
-            [
-                "uvicorn",
-                settings.server.APP_LOC,
-                *_convert_uvicorn_args(process_args),
-            ],
-            check=True,
+            ["uvicorn", settings.server.APP_LOC, *_convert_uvicorn_args(process_args)],
+            check=True,  # noqa: S603, S607
         )
     finally:
         for process in multiprocessing.active_children():
@@ -196,7 +204,9 @@ def run_all_app(
     default=False,
     type=bool,
 )
-@click.option("-d", "--debug", help="Enable debugging.", is_flag=True, default=False, type=bool)
+@click.option(
+    "-d", "--debug", help="Enable debugging.", is_flag=True, default=False, type=bool
+)
 def run_worker(
     worker_concurrency: int | None,
     verbose: bool | None,
@@ -270,13 +280,19 @@ def create_user(
 
     email = email or click.prompt("Email")
     name = name or click.prompt("Full Name", show_default=False)
-    password = password or click.prompt("Password", hide_input=True, confirmation_prompt=True)
-    superuser = superuser or click.prompt("Create as superuser?", show_default=True, type=click.BOOL)
+    password = password or click.prompt(
+        "Password", hide_input=True, confirmation_prompt=True
+    )
+    superuser = superuser or click.prompt(
+        "Create as superuser?", show_default=True, type=click.BOOL
+    )
 
     anyio.run(_create_user, email, name, password, superuser)
 
 
-@user_management_app.command(name="promote-to-superuser", help="Promotes a user to application superuser")
+@user_management_app.command(
+    name="promote-to-superuser", help="Promotes a user to application superuser"
+)
 @click.option(
     "--email",
     help="Email of the user",
